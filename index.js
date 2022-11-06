@@ -13,7 +13,7 @@ const treeFactory = (array) => {
         if (start > end) return null;
 
         let mid = parseInt((start + end)  / 2)
-        let root = nodeFactory(mid);
+        let root = nodeFactory(arr[mid]);
 
         root.left = buildTree(arr, start, mid - 1);
         root.right = buildTree(arr, mid + 1, end);
