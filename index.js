@@ -23,8 +23,24 @@ const treeFactory = (array) => {
         return root;
     }
 
+    const insert = (value, rootArg = root) => {
+        if (rootArg == null){
+           return (rootArg = nodeFactory(value));
+        }
+
+        if (rootArg.data > value){
+            rootArg.left = insert(value, rootArg.left);
+        }
+
+        if (rootArg.data < value){
+            rootArg.right = insert(value, rootArg.right);
+        }
+
+        return rootArg;
+    }
+
     return {
-        root
+        root, insert
     }
 }
 
@@ -71,7 +87,7 @@ const merge = (leftArr, rightArr) => {
 
 
 // TESTING 
-const tree = treeFactory([1, 2, 3, 4, 5, 6, 7, 8,])
+const tree = treeFactory([1, 2, 3, 4, 5, 6, 7,])
 const prettyPrint = (node, prefix = '', isLeft = true) => {
     if (node.right !== null) {
       prettyPrint(node.right, `${prefix}${isLeft ? '│   ' : '    '}`, false);
