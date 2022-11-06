@@ -1,14 +1,16 @@
 const nodeFactory  = (data) => {
-    data: data || null;
-    left: null;
-    right: null;
+    return {
+        data: data || null,
+        left: null,
+        right: null,
+    }
 }
 
 const treeFactory = (array) => {
     let sortedFilteredArray = [... new Set(mergeSort(array))];
-    let root = buildTree(sortedFilteredArray, 0, sortedFilteredArray.length - 1 );
+    root = buildTree(sortedFilteredArray, 0, sortedFilteredArray.length - 1 );
 
-    const buildTree = (arr, start, end) => {
+    function buildTree(arr, start, end){
 
         if (start > end) return null;
 
@@ -66,3 +68,17 @@ const merge = (leftArr, rightArr) => {
 
     return sortedArr;
 }
+
+
+// TESTING 
+const tree = treeFactory([1, 2, 3, 4, 5, 6, 7, 8,])
+const prettyPrint = (node, prefix = '', isLeft = true) => {
+    if (node.right !== null) {
+      prettyPrint(node.right, `${prefix}${isLeft ? '│   ' : '    '}`, false);
+    }
+    console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.data}`);
+    if (node.left !== null) {
+      prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
+    }
+  }
+prettyPrint(tree.root)
