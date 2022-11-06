@@ -39,8 +39,40 @@ const treeFactory = (array) => {
         return rootArg;
     }
 
+    const remove = (value, rootArg = root) => {
+        if(rootArg == null) {
+            return rootArg
+        };
+
+        if(rootArg.data > value){
+            rootArg.left = remove(value, rootArg.left);
+        } else if (rootArg.data < value){
+            rootArg.right = remove(value, rootArg.right);
+        }
+
+        else {
+            if(rootArg.right == null){
+                return rootArg.left;
+            } else if (rootArg.left == null){
+                return rootArg.right;
+            }
+
+            let succesor = rootArg.right;
+            while(succesor.left != null){
+                succesor = succesor.left
+            }
+
+            rootArg.data = succesor.data;
+            rootArg.right = remove(rootArg.data, rootArg.right);
+        }
+
+        return rootArg; 
+    } 
+
     return {
-        root, insert
+        root, 
+        insert,
+        remove
     }
 }
 
@@ -62,7 +94,7 @@ const merge = (leftArr, rightArr) => {
     let lI = 0;
     let rI = 0;
 
-    while (lI < leftArr.length || rI < rightArr.length){
+    while (lI < leftArr.length && rI < rightArr.length){
         if (leftArr[lI] < rightArr[rI]){
             sortedArr.push(leftArr[lI]);
             lI++;
@@ -87,7 +119,7 @@ const merge = (leftArr, rightArr) => {
 
 
 // TESTING 
-const tree = treeFactory([1, 2, 3, 4, 5, 6, 7,])
+const tree = treeFactory([1, 2, 3, 4, 5, 6, 7])
 const prettyPrint = (node, prefix = '', isLeft = true) => {
     if (node.right !== null) {
       prettyPrint(node.right, `${prefix}${isLeft ? '│   ' : '    '}`, false);
@@ -97,4 +129,6 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
       prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
     }
   }
+prettyPrint(tree.root)
+tree.remove(4);
 prettyPrint(tree.root)
