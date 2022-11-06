@@ -69,10 +69,22 @@ const treeFactory = (array) => {
         return rootArg; 
     } 
 
+    const find = (value, rootArg = root) => {
+        if (rootArg == null) return null;
+
+        if (rootArg.data == value) return rootArg;
+        else if (rootArg.data > value){
+            return find(value, rootArg.left);
+        } else {
+            return find(value, rootArg.right)
+        }
+    }
+
     return {
         root, 
         insert,
-        remove
+        remove,
+        find
     }
 }
 
@@ -129,6 +141,4 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
       prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
     }
   }
-prettyPrint(tree.root)
-tree.remove(4);
-prettyPrint(tree.root)
+prettyPrint(tree.root);
