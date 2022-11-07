@@ -137,6 +137,15 @@ const treeFactory = (array) => {
         return postorderArr;
     }
 
+    const height = (node) => {
+        if (node == null) return -1;
+
+        let leftHeight = height(node.left);
+        let rightHeght = height(node.right);
+
+        return Math.max(leftHeight, rightHeght) + 1; 
+    }
+
     return {
         root, 
         insert,
@@ -144,7 +153,8 @@ const treeFactory = (array) => {
         find,
         inorder,
         preorder,
-        postorder
+        postorder,
+        height
     }
 }
 
