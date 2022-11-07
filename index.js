@@ -163,6 +163,17 @@ const treeFactory = (array) => {
         return depthVar;
     }
 
+    const isBalanced = (rootArg = root) => {
+        if (rootArg == null) return true ;
+
+        let lH = height(rootArg.left);
+        let rH = height(rootArg.right);
+
+        if(Math.abs(lH - rH) <= 1 && isBalanced(rootArg.left) == true && isBalanced(rootArg.right) == true) return true; 
+
+        return false;
+     }
+
     return {
         root, 
         insert,
@@ -172,7 +183,8 @@ const treeFactory = (array) => {
         preorder,
         postorder,
         height, 
-        depth
+        depth,
+        isBalanced
     }
 }
 
