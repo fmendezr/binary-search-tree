@@ -10,6 +10,7 @@ const treeFactory = (array) => {
     let sortedFilteredArray = [... new Set(mergeSort(array))];
     let root = buildTree(sortedFilteredArray, 0, sortedFilteredArray.length - 1 );
     let inorderArr = [];
+    let preorderArr = [];
 
     function buildTree(arr, start, end){
 
@@ -99,6 +100,24 @@ const treeFactory = (array) => {
         return inorderArr;
     }
 
+    const preorder = (rootArg = root) => {
+        if(rootArg == null)return;
+
+        if(rootArg.data !== undefined){
+            preorderArr.push(rootArg.data);
+        }
+
+        if(rootArg.left != null){
+           preorder(rootArg.left);
+        }
+
+        if (rootArg.right != null){
+            preorder(rootArg.right)
+        }
+
+        return preorderArr;
+    }
+
     return {
         root, 
         inorderArr,
@@ -106,6 +125,7 @@ const treeFactory = (array) => {
         remove,
         find,
         inorder,
+        preorder
     }
 }
 
