@@ -11,6 +11,7 @@ const treeFactory = (array) => {
     let root = buildTree(sortedFilteredArray, 0, sortedFilteredArray.length - 1 );
     let inorderArr = [];
     let preorderArr = [];
+    let postorderArr = [];
 
     function buildTree(arr, start, end){
 
@@ -118,14 +119,32 @@ const treeFactory = (array) => {
         return preorderArr;
     }
 
+    const postorder = (rootArg = root) => {
+        if (rootArg == null) return;
+
+        if (rootArg.left != null){
+            postorder(rootArg.left);
+        }
+
+        if (rootArg.right != null){
+            postorder(rootArg.right);
+        }
+
+        if (rootArg.data != undefined){
+            postorderArr.push(rootArg.data);
+        }
+
+        return postorderArr;
+    }
+
     return {
         root, 
-        inorderArr,
         insert,
         remove,
         find,
         inorder,
-        preorder
+        preorder,
+        postorder
     }
 }
 
