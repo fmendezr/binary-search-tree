@@ -83,6 +83,29 @@ const treeFactory = (array) => {
         }
     }
 
+    const levelOrder = () => {
+        let queue = [];
+        let result = [];
+
+        if (root == null) return;
+
+        queue.push(root);
+
+        while(queue.length > 0){
+            let current = queue.shift();
+            result.push(current.data);
+
+            if(current.left != null){
+                queue.push(current.left);
+            } 
+            if (current.right != null){
+                queue.push(current.right);
+            }
+        }
+        
+        return result;
+    } 
+
     const inorder = (rootArg = root) => {
         if(rootArg == null)return;
 
@@ -186,6 +209,7 @@ const treeFactory = (array) => {
         insert,
         remove,
         find,
+        levelOrder,
         inorder,
         preorder,
         postorder,
