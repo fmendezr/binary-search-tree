@@ -98,7 +98,7 @@ const treeFactory = (array) => {
             inorder(rootArg.right);
         }
 
-        return inorderArr;
+        return [... new Set(inorderArr)];
     }
 
     const preorder = (rootArg = root) => {
@@ -116,7 +116,7 @@ const treeFactory = (array) => {
             preorder(rootArg.right)
         }
 
-        return preorderArr;
+        return [... new Set(preorderArr)];
     }
 
     const postorder = (rootArg = root) => {
@@ -134,7 +134,7 @@ const treeFactory = (array) => {
             postorderArr.push(rootArg.data);
         }
 
-        return postorderArr;
+        return [... new Set(postorderArr)];
     }
 
     const height = (node) => {
@@ -174,6 +174,13 @@ const treeFactory = (array) => {
         return false;
      }
 
+     const rebalance = () => {
+        if (root.isBalanced == true) return root;
+
+        let newArr = inorder();
+        return buildTree(newArr, 0 , newArr.length)
+     }
+
     return {
         root, 
         insert,
@@ -184,7 +191,7 @@ const treeFactory = (array) => {
         postorder,
         height, 
         depth,
-        isBalanced
+        isBalanced, rebalance
     }
 }
 
