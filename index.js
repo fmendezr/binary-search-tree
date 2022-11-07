@@ -8,7 +8,8 @@ const nodeFactory  = (data) => {
 
 const treeFactory = (array) => {
     let sortedFilteredArray = [... new Set(mergeSort(array))];
-    root = buildTree(sortedFilteredArray, 0, sortedFilteredArray.length - 1 );
+    let root = buildTree(sortedFilteredArray, 0, sortedFilteredArray.length - 1 );
+    let inorderArr = [];
 
     function buildTree(arr, start, end){
 
@@ -80,11 +81,31 @@ const treeFactory = (array) => {
         }
     }
 
+    const inorder = (rootArg = root) => {
+        if(rootArg == null)return;
+
+        if (rootArg.left != null){
+            inorder(rootArg.left);
+        }
+
+        if (rootArg.data !== undefined){
+            inorderArr.push(rootArg.data);
+        }
+
+        if (rootArg.right != null){
+            inorder(rootArg.right);
+        }
+
+        return inorderArr;
+    }
+
     return {
         root, 
+        inorderArr,
         insert,
         remove,
-        find
+        find,
+        inorder,
     }
 }
 
@@ -142,3 +163,4 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
     }
   }
 prettyPrint(tree.root);
+
