@@ -146,6 +146,23 @@ const treeFactory = (array) => {
         return Math.max(leftHeight, rightHeght) + 1; 
     }
 
+    const depth = (targetNode, rootArg = root) => {
+        let depthVar = - 1;
+
+        if(targetNode.data < rootArg.data){
+            depthVar = depth(targetNode, rootArg.left);
+            depthVar++;
+        } else if (targetNode.data > rootArg.data){
+            depthVar = depth(targetNode, rootArg.right);
+            depthVar++; 
+        }
+        else {
+            depthVar++;
+        } 
+
+        return depthVar;
+    }
+
     return {
         root, 
         insert,
@@ -154,7 +171,8 @@ const treeFactory = (array) => {
         inorder,
         preorder,
         postorder,
-        height
+        height, 
+        depth
     }
 }
 
